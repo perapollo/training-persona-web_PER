@@ -1,0 +1,37 @@
+<mat-drawer-container class="h-screen flex flex-col">
+    <mat-drawer #drawerMenu class="contents" mode="over">
+        <mat-nav-list class="flex-col">
+            <mat-list-item *ngFor="let item of menuItems" class="flex flex-row justify-between items-center w-full"
+                (click)="action(item.action,drawerMenu)" [routerLinkActive]="['is-active']">
+                <div class="flex flex-row justify-center items center">
+                    <mat-icon *ngIf="!item.iconSvg" class="menu-icons">{{item.icon}}</mat-icon>
+                    <img *ngIf="item.iconSvg" class="menu-icons" [src]="item.icon">
+                    <span class="left-panel-items ml-2"> {{item.text}} </span>
+                </div>
+                <div *ngIf="item.shortcut" class="flex flex-row justify-end">
+                    <span
+                        class="shortcut mat-caption flex flex-row justify-center items-center">{{item.shortcut}}</span>
+                </div>
+                <mat-divider *ngIf="item.divider"></mat-divider>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-drawer>
+
+    <mat-drawer-content class="flex flex-col">
+        <mat-toolbar color="primary" class="flex flex-row justify-between items-center">
+            <div class="flex flex-row justify-start items-center">
+                <button mat-icon-button (click)="toggleMenu(drawerMenu)">
+                    <mat-icon>menu</mat-icon>
+                </button>
+
+                <div class="flex-row justify-center items-center ml-2">
+                    <img class="logo-toolbar" src="assets/images/logo-header-blanco.png" alt="">
+                </div>
+            </div>
+        </mat-toolbar>
+
+        <div class="flex flex-row justify-center items-center h-full">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
